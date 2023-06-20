@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %}
+<head>
+  <style>
+    .table {
+      border: 3px solid black;
+      width: 90%;
+    }
+
+    .table,
+    #tex {
+      margin: 10px 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<h2>{{ user.username }}님의 수동 진단 결과</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>이 름</th>
+      <th>계정 관리</th>
+      <th>서비스 관리</th>
+      <th>패치 관리</th>
+      <th>로그 관리</th>
+      <th>보안 관리</th>
+      <th>업로드 시각</th>
+      <th>다운로드</th>
+      <th>삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for Pyqt5 in items %} {% if Pyqt5.email == user.email%}
+    <tr>
+      <td>{{ user.username }}</td>
+      <td>{{ Pyqt5.AscorePer }}</td>
+      <td>{{ Pyqt5.SscorePer }}</td>
+      <td>{{ Pyqt5.PscorePer }}</td>
+      <td>{{ Pyqt5.LscorePer }}</td>
+      <td>{{ Pyqt5.SescorePer }}</td>
+      <td>{{ Pyqt5.created_at }}</td>
+      <td>
+        <a href="{% url 'download_file' Pyqt5.xlsx_file %}" class="btn btn-primary btn-sm">Download</a>
+      </td>
+      <td>
+        <a
+          class="btn btn-warning btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %} {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

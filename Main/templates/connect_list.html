@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<head>
+  <style>
+    .table {
+      border: 3px solid black;
+      width: 90%;
+    }
+
+    .table,
+    #tex {
+      margin: 10px 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<h2>{{ user.username }}님의 자동 진단 결과</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>이 름</th>
+      <th>계정 관리</th>
+      <th>서비스 관리</th>
+      <th>패치 관리</th>
+      <th>로그 관리</th>
+      <th>보안 관리</th>
+      <th>업로드 시각</th>
+      <th>다운로드</th>
+      <th>삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for Main_autoupload in items %} {%if Main_autoupload.user == user.username%} {% load custom_filters %}
+    <tr>
+      <td>{{ Main_autoupload.user }}</td>
+
+      <td>{{ Main_autoupload.AscorePer }}</td>
+      <td>{{ Main_autoupload.SscorePer }}</td>
+      <td>{{ Main_autoupload.PscorePer }}</td>
+      <td>{{ Main_autoupload.LscorePer }}</td>
+      <td>{{ Main_autoupload.SescorePer }}</td>
+      <td>{{ Main_autoupload.create_date }}</td>
+      <td>
+        <a
+          href="{{ Main_autoupload.file.url }}"
+          download
+          class="btn btn-primary btn-sm"
+          >Download</a
+        >
+      </td>
+      <td>
+        <a
+          href="{% url 'connect_list_delete' Main_autoupload.pk %}"
+          class="btn btn-warning btn-sm"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endif %}{% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

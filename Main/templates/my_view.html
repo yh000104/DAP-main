@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+    제목 : <textarea name="title"></textarea>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </div>
+</form>
+<br />
+{% endblock %}

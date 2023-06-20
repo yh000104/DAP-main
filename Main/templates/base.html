@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>DAP Security</title>
+    <link rel="shortcut icon" href="../static/fav.ico" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+@charset "utf-8";
+
+body {
+  background: #DCE4ED;
+}
+
+.cfixed:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.divider {
+  width: 90%;
+  max-width: 1132px;
+  margin: 0 auto;
+  margin-top: 77px;
+  background: #eee;
+}
+
+.header {
+  position: relative;
+  padding: 18px 5%;
+}
+
+.header .logo {
+  float: left;
+}
+
+.header .logo a {
+  font-size: 26px;
+  color: #3f51b5;
+  font-weight: normal;
+}
+
+.header .gnb {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #3f51b5;
+  list-style-type: none;
+  text-decoration-line: none;
+}
+
+.header .gnb li {
+  border-bottom: 1px solid #303f9f;
+}
+
+.header .gnb li a {
+  display: block;
+  padding: 14px 0 14px 5%;
+  font-size: 14px;
+  color: #fff;
+}
+
+.header .menu-toggle-btn {
+  float: right;
+  width: 20px;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.header .menu-toggle-btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #3f51b5;
+}
+
+.header .menu-toggle-btn span:nth-child(2) {
+  margin: 5px 0;
+}
+
+.slider img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/*드롭다운시작*/
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.gnb li:hover .dropdown-menu {
+  display: block;
+}
+
+.gnb li {
+  position: relative;
+  display: inline-block;
+}
+/*드롭다운끝*/
+
+/* 태블릿용 CSS */
+@media all and (min-width: 768px) {
+  /* 기본 CSS */
+  .divider {
+    margin-top: 124px;
+  }
+
+  .header {
+    position: static;
+    padding: 28px 52px;
+  }
+
+  .header .gnb {
+    display: block !important;
+    position: static;
+    float: right;
+    width: auto;
+    margin-top: 6px;
+    background: none;
+  }
+
+  .header .gnb li {
+    float: left;
+    margin-left: 21px;
+    border-bottom: 0;
+  }
+
+  .header .gnb li a {
+    padding: 0;
+    font-size: 16px;
+    color: #3f51b5;
+  }
+
+  .header .menu-toggle-btn {
+    display: none !important;
+  }
+}
+
+    </style>
+  </head>
+    <header class="header cfixed">
+    <h1 class="logo"><a href="{% url 'index' %}" style="text-decoration: none;">DAP Security</a></h1>
+    <nav>
+      <ul class="gnb">
+        <li><a href="#" style="text-decoration: none;">취약점진단[AUTO]</a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'connect' %}" style="text-decoration-style: dashed;">취약점진단 [자동]</a></li>
+            <li><a href="{% url 'connect_list' %}" style="text-decoration-style: dashed;">취약점진단[자동확인]</a></li>
+          </ul>
+        </li>
+        <li><a href="#" style="text-decoration: none;">취약점진단[MANUAL]</a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'diagnosis' %}" style="text-decoration-style: dashed;">취약점진단[수동]</a></li>
+            <li><a href="{% url 'model_form_upload' %}" style="text-decoration-style: dashed;">취약점진단[직접입력]</a></li>
+            <li><a href="{% url 'model_form' %}" style="text-decoration-style: dashed;">취약점진단[입력기록]</a></li>
+            <li><a href="{% url 'pyqt5' %}" style="text-decoration-style: dashed;">취약점진단[수동확인]</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'board' %}" style="text-decoration: none;">게시판</a></li>
+        <li>
+          {% if user.is_authenticated %}
+          <a style="text-decoration: none;" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+          {% else %}
+          <a style="text-decoration: none;" href="{% url 'common:login' %}">로그인</a>
+          {% endif %}
+        </li>
+        <li>
+          {% if not user.is_authenticated %}
+          <a style="text-decoration: none;" href="{% url 'common:signup' %}">회원가입</a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+  </header>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a
+                style="font-size: 1.2rem"
+                class="nav-link"
+                href="{% url 'common:logout' %}"
+                >{{ user.username }} (로그아웃)</a
+              >
+              {% else %}
+              <a
+                style="font-size: 1.2rem"
+                class="nav-link"
+                href="{% url 'common:login' %}"
+                >로그인</a
+              >
+              {% endif %}
+            </li>
+            <li>
+              {% if not user.is_authenticated %}
+              <a
+                style="font-size: 1.2rem"
+                class="nav-link"
+                href="{% url 'common:signup' %}"
+                >회원가입</a
+              >
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- 기본 템플릿 안에 삽입될 내용 Start -->
+    {% block content %} {% endblock %}
+    <!-- 기본 템플릿 안에 삽입될 내용 End -->
+    <!-- 자바스크립트 Start -->
+    {% block script %}
+    <script type="text/javascript">
+      const delete_elements = document.getElementsByClassName("delete");
+      Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener("click", function () {
+          if (confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+          }
+        });
+      });
+    </script>
+    <script>
+      const left = document.querySelector("#left_side");
+      const right = document.querySelector("#right_side");
+      const os = document.querySelector(".os_text");
+
+      left.addEventListener("mouseover", () => {
+        os.innerText = ".bat파일로 진단을 시작하시겠습니까?";
+      });
+
+      right.addEventListener("mouseover", () => {
+        os.innerText = "Shell파일로 진단을 시작하시겠습니까?";
+      });
+    </script>
+    {% endblock %}
+    <!-- 자바스크립트 End -->
+  </body>
+</html>

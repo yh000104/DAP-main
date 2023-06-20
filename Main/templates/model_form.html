@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<head>
+  <style>
+    .table {
+      border: 3px solid black;
+      width: 90%;
+    }
+
+    .table,
+    #tex {
+      margin: 10px 20px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<h2 id="tex">{{ user.username }}님의 직접 입력 기록</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>이 름</th>
+      <th>계정 관리</th>
+      <th>서비스 관리</th>
+      <th>패치 관리</th>
+      <th>로그 관리</th>
+      <th>보안 관리</th>
+      <th>업로드 시간</th>
+      <th>다운로드</th>
+      <th>삭제</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for Document in documents %} {% if Document.uploader == user.username %}
+    <tr>
+      <td>{{ Document.uploader }}</td>
+      <td>{{ Document.description1 }}</td>
+      <td>{{ Document.description2 }}</td>
+      <td>{{ Document.description3 }}</td>
+      <td>{{ Document.description4 }}</td>
+      <td>{{ Document.description5 }}</td>
+      <td>{{ Document.uploaded_at }}</td>
+      <td>
+        <a href="{{ Document.document.url }}" class="btn btn-primary btn-sm">Download</a>
+      </td>
+      <td>
+        <a href="{% url 'model_form_delete' Document.pk %}" class="btn btn-warning btn-sm">Delete</a>
+      </td>
+    </tr>
+    {% endif %} {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

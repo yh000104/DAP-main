@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<button id="run-script-btn">Run Script</button>
+
+<script>
+  $(document).ready(function () {
+    $("#run-script-btn").click(function () {
+      $.ajax({
+        url: "/run_script",
+        type: "POST",
+        success: function (response) {
+          alert(response);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% block content %}
+<head>
+  <style>
+    .input-form {
+      max-width: 680px;
+
+      margin-top: 80px;
+      padding: 32px;
+
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<div class="container">
+  <div class="input-form-backgroud row">
+    <div class="input-form col-md-12 mx-auto">
+      <h4 class="mb-3">서버 연결 형식</h4>
+      <form class="validation-form" novalidate method="POST" action="{% url 'connect_user' %}">
+        {% csrf_token %} {% include "form_errors.html" %}
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="name">유저 아이디</label>
+            <input
+              class="form-control"
+              type="text"
+              name="user_id"
+              id="user_id"
+              placeholder="유저 아이디를 입력하세요"
+              value="{{ user.username }}"
+              required
+            />
+            <div class="invalid-feedback">이름을 입력해주세요.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Client IP</label>
+          <input class="form-control" type="text" name="client_IP" id="client_IP" placeholder="client_IP" required />
+
+          <div class="invalid-feedback">이메일을 입력해주세요.</div>
+        </div>
+
+        <div class="mb-3">
+          <label>Client Name</label>
+          <input class="form-control" type="client_name" name="client_name" id="client_name" placeholder="client_name" />
+        </div>
+
+        <div class="mb-3">
+          <label>Client Password</label>
+          <input class="form-control" type="text" name="client_password" id="client_password" placeholder="client_password" required />
+          <div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+        </div>
+
+        <hr class="mb-4" />
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" name="agree" id="agree" required />
+          <label class="custom-control-label" for="agree">개인정보 수집 및 이용에 동의합니다.</label>
+        </div>
+        <div class="mb-4"></div>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit" id="run-script-btn">스크립트 실행</button>
+
+        <script>
+          $(document).ready(function () {
+            $("#run-script-btn").click(function () {
+              $.ajax({
+                url: "/connect_user",
+                type: "POST",
+                success: function (response) {
+                  alert(response);
+                },
+                error: function (error) {
+                  console.log(error);
+                },
+              });
+            });
+          });
+        </script>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

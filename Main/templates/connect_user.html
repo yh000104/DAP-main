@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block content %}
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    .output {
+      display: block;
+      width: 50%;
+      padding: 30px 0;
+      background: #1b1919;
+      border-radius: 5px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .output .fa-check {
+      height: 150px;
+      width: 150px;
+      border: 5px solid #f00144;
+      line-height: 150px;
+      border-radius: 50%;
+      color: #f00144;
+      font-size: 85px;
+      margin-bottom: 30px;
+      animation: animate 1s ease;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: translateY(60px) scale(0.7) rotate(0deg);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(0.3) rotate(90deg) skewY(-40deg);
+        width: 50px;
+      }
+      75% {
+        transform: scale(1.4) rotate(180deg) skewY(20deg);
+        width: 10px;
+      }
+      100% {
+        transform: translateY(0px) scale(1) rotate(360deg);
+        opacity: 1;
+      }
+    }
+    .text {
+      font-size: 40px;
+      font-weight: 600;
+      font-family: sans-serif;
+      color: #f00144;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+
+<div class="output">
+  <span class="fa fa-check"></span>
+
+  <div class="script_info">
+    <div class="text">
+      안녕하세요 {{ user.username }} 님. <br />
+      스크립트 진단을 실행 완료했습니다.
+    </div>
+    <br />
+    <!-- <p>client_IP: {{ client_IP }} <br /></p>
+    <p>client_name: {{ client_name }} <br /></p>
+    <p>동의 여부: {{ agree }} <br /></p> -->
+  </div>
+</div>
+{% endblock %}
