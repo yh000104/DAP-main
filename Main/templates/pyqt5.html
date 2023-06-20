@@ -1,18 +1,91 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <head>
   <style>
+ /* Global Styles */
+
+ body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Table Styles */
     .table {
-      border: 3px solid black;
+      border-collapse: collapse;
       width: 90%;
+      margin: 3em auto;
     }
 
-    .table,
-    #tex {
-      margin: 10px 20px;
+    .table thead th {
+      padding: 10px;
+      background-color: #1c2a48;
+      color: #fff;
+      border: 1px solid #1c2a48;
     }
 
+    .table tbody tr:nth-child(even) {
+      background-color: #f4f4f8;
+    }
+
+    .table tbody tr:hover {
+      background-color: #ddd;
+      cursor: pointer;
+    }
+
+    .table tbody td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    /* Title text */
     h2 {
       text-align: center;
+      margin-bottom: 2em;
+    }
+
+    /* Graph container */
+    .graph-container {
+      width: 100%;
+      background-color: red;
+      position: relative;
+      padding-top: 5px;
+      border-radius: 5px;
+    }
+
+    /* Bar */
+    .graph-bar {
+      height: 20px;
+      position: absolute;
+      background-color: #4caf50;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      line-height: 20px;
+      border-radius: 5px;
+    }
+
+    /* Buttons */
+    .btn {
+      font-size: 0.9em;
+      padding: 5px;
+      margin: 5px;
+      border: none;
+      outline: none;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+    }
+
+    .btn-primary:hover,
+    .btn-warning:hover {
+      opacity: 0.8;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -34,23 +107,36 @@
     </tr>
   </thead>
   <tbody>
-    {% for Pyqt5 in items %} {% if Pyqt5.email == user.email%}
+    {% for Pyqt5 in items %} {% if Pyqt5.email == user.email %}
     <tr>
       <td>{{ user.username }}</td>
-      <td>{{ Pyqt5.AscorePer }}</td>
-      <td>{{ Pyqt5.SscorePer }}</td>
-      <td>{{ Pyqt5.PscorePer }}</td>
-      <td>{{ Pyqt5.LscorePer }}</td>
-      <td>{{ Pyqt5.SescorePer }}</td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Pyqt5.AscorePer }}%;">{{ Pyqt5.AscorePer }}</div>
+        </div>
+      </td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Pyqt5.SscorePer }}%;">{{ Pyqt5.SscorePer }}</div>
+        </div></td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Pyqt5.PscorePer }}%;">{{ Pyqt5.PscorePer }}</div>
+        </div></td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Pyqt5.LscorePer }}%;">{{ Pyqt5.LscorePer }}</div>
+        </div></td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Pyqt5.SescorePer }}%;">{{ Pyqt5.SescorePer }}</div>
+        </div></td>
       <td>{{ Pyqt5.created_at }}</td>
       <td>
         <a href="{% url 'download_file' Pyqt5.xlsx_file %}" class="btn btn-primary btn-sm">Download</a>
       </td>
       <td>
-        <a
-          class="btn btn-warning btn-sm"
-          >Delete</a
-        >
+        <a class="btn btn-warning btn-sm">Delete</a>
       </td>
     </tr>
     {% endif %} {% endfor %}

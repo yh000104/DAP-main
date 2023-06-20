@@ -1,74 +1,98 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <head>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+
   <style>
-    .input-form {
+    body {
+      background: #dce4ed;
+      font-family: Arial, sans-serif;
+    }
+
+    .manual_wrap {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      max-width: 800px;
+      margin: 50px auto 0;
+      padding: 20px;
+    }
+
+    .form-control,
+    input[type="file"] {
       max-width: 680px;
-
-      margin-top: 80px;
-      padding: 32px;
-
+      margin-bottom: 10px;
+      padding: 10px;
       background: #fff;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       border-radius: 10px;
-      -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      -moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-      box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+      font-size: 16px;
+      resize: none;
+    }
+
+    .form-control:focus {
+      border-color: #093279;
+      box-shadow: none;
+    }
+
+    h4 {
+      font-weight: 600;
+      color: #093279;
+      margin-bottom: 10px;
+    }
+
+    button[type="submit"] {
+      background-color: #093279;
+      border-color: #093279;
+      color: white;
+      padding: 2px 8px;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #306095;
+      border-color: #306095;
+    }
+
+    .submit-btn {
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
 
-<div class="container">
-  <div class="input-form-backgroud row">
-    <div class="input-form col-md-12 mx-auto">
-      <h4 class="mb-3">서버 연결 형식</h4>
-      <form method="POST" enctype="multipart/form-data" class="validation-form">
-        {% csrf_token %}
+<div class="manual_wrap">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="name">이 름</label>
-            <input name="user" class="form-control" required value="{{ user.username }}"></input>
-            <div class="invalid-feedback">이름을 입력해주세요.</div>
-          </div>
-        </div>
+    <div class="mb-3">
+      <h4>이 름</h4>
+      <input name="user" class="form-control" value="{{ user.username }}" />
+      <h4>계정 관리</h4>
+      <textarea name="description1" class="form-control">{{ form.description1.value|default_if_none:'' }}</textarea>
+      <h4>서비스 관리</h4>
+      <textarea name="description2" class="form-control">{{ form.description2.value|default_if_none:'' }}</textarea>
+      <h4>패치 관리</h4>
+      <textarea name="description3" class="form-control">{{ form.description3.value|default_if_none:'' }}</textarea>
+      <h4>로그 관리</h4>
+      <textarea name="description4" class="form-control">{{ form.description4.value|default_if_none:'' }}</textarea>
+      <h4>보안 관리</h4>
+      <textarea name="description5" class="form-control">{{ form.description5.value|default_if_none:'' }}</textarea>
+      <h4 style="text-align: center">Report 파일 업로드</h4>
+      <input type="file" name="document" style="padding: 10px; display: block; margin: 0 auto" />
+    </div>
 
-        <div class="mb-3">
-          <label>계정 관리</label>
-          <input name="description1" class="form-control">{{ form.description1.value|default_if_none:'' }}</input>
-          <div class="invalid-feedback">계정 관리 점수를 입력해주세요.</div>
-        </div>
-
-        <div class="mb-3">
-          <label>서비스 관리</label>
-          <input name="description2" class="form-control">{{ form.description2.value|default_if_none:'' }}</input>
-        </div>
-        
-        <div class="mb-3">
-          <label>패치 관리</label>
-          <input name="description3" class="form-control">{{ form.description3.value|default_if_none:'' }}</input>
-        </div>
-
-        <div class="mb-3">
-          <label>로그 관리</label>
-          <input name="description4" class="form-control">{{ form.description4.value|default_if_none:'' }}</input>
-        </div>
-
-        <div class="mb-3">
-          <label>보안 관리</label>
-          <input name="description5" class="form-control">{{ form.description5.value|default_if_none:'' }}</input>
-        </div>
-
-        <div class="mb-3">
-          <label>Report 파일 업로드</label>
-          <input type="file" name="document" style="padding: 10px; display: block; margin: 0 auto" />
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-lg btn-block">업로드</button>
-      </form>
+    <div class="submit-btn">
+      <button type="submit">Upload</button>
+    </div>
+  </form>
 </div>
-</div>
-</div>
-
-<!-- <p><a href="{% url 'index' %}">Return to home</a></p> -->
 {% endblock %}

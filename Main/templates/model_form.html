@@ -1,23 +1,96 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <head>
   <style>
+    /* Global Styles */
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Table Styles */
     .table {
-      border: 3px solid black;
+      border-collapse: collapse;
       width: 90%;
+      margin: 3em auto;
     }
 
-    .table,
-    #tex {
-      margin: 10px 20px;
+    .table thead th {
+      padding: 10px;
+      background-color: #1c2a48;
+      color: #fff;
+      border: 1px solid #1c2a48;
     }
 
+    .table tbody tr:nth-child(even) {
+      background-color: #f4f4f8;
+    }
+
+    .table tbody tr:hover {
+      background-color: #ddd;
+      cursor: pointer;
+    }
+
+    .table tbody td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    /* Title text */
     h2 {
       text-align: center;
+      margin-bottom: 2em;
+    }
+
+    /* Graph container */
+    .graph-container {
+      width: 100%;
+      background-color: red;
+      position: relative;
+      padding-top: 5px;
+      border-radius: 5px;
+    }
+
+    /* Bar */
+    .graph-bar {
+      height: 20px;
+      position: absolute;
+      background-color: #4caf50;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      line-height: 20px;
+      border-radius: 5px;
+    }
+
+    /* Buttons */
+    .btn {
+      font-size: 0.9em;
+      padding: 5px;
+      margin: 5px;
+      border: none;
+      outline: none;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+    }
+
+    .btn-primary:hover,
+    .btn-warning:hover {
+      opacity: 0.8;
+      cursor: pointer;
     }
   </style>
 </head>
 
-<h2 id="tex">{{ user.username }}님의 직접 입력 기록</h2>
+<h2 id="tex">{{ user.username }}님의 입력 기록</h2>
 <table class="table">
   <thead>
     <tr>
@@ -36,11 +109,31 @@
     {% for Document in documents %} {% if Document.uploader == user.username %}
     <tr>
       <td>{{ Document.uploader }}</td>
-      <td>{{ Document.description1 }}</td>
-      <td>{{ Document.description2 }}</td>
-      <td>{{ Document.description3 }}</td>
-      <td>{{ Document.description4 }}</td>
-      <td>{{ Document.description5 }}</td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Document.description1 }}%;">{{ Document.description1 }}</div>
+        </div>
+      </td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Document.description2 }}%;">{{ Document.description2 }}</div>
+        </div>
+      </td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Document.description3 }}%;">{{ Document.description3 }}</div>
+        </div>
+      </td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Document.description4 }}%;">{{ Document.description4 }}</div>
+        </div>
+      </td>
+      <td>
+        <div class="graph-container">
+          <div class="graph-bar" style="width: {{ Document.description5 }}%;">{{ Document.description5 }}</div>
+        </div>
+      </td>
       <td>{{ Document.uploaded_at }}</td>
       <td>
         <a href="{{ Document.document.url }}" class="btn btn-primary btn-sm">Download</a>
